@@ -5,6 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#07111f" />
   <meta name="color-scheme" content="dark light" />
+  <!-- GitHub Pages / 浏览器防缓存：每次更新只改 SITE_VERSION -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <script>
+    const SITE_VERSION = "20260502-v3";
+
+    (function forceFreshPage() {
+      try {
+        const url = new URL(window.location.href);
+        const currentVersion = url.searchParams.get("v");
+
+        if (currentVersion !== SITE_VERSION) {
+          url.searchParams.set("v", SITE_VERSION);
+          window.location.replace(url.toString());
+        }
+      } catch (e) {
+        console.warn("Version refresh skipped:", e);
+      }
+    })();
+  </script>
   <title>香港一日游执行助手｜2026-05-02</title>
   <style>
     :root{
@@ -478,4 +499,530 @@
     .item p{
       margin:0;
       color:var(--sub);
-      font-size:13
+      font-size:13px;
+      line-height:1.55;
+    }
+    .badge{
+      display:inline-flex;
+      vertical-align:middle;
+      margin-left:6px;
+      padding:2px 7px;
+      border-radius:999px;
+      font-size:10px;
+      line-height:1.4;
+      border:1px solid rgba(255,255,255,.14);
+      color:var(--txt);
+      background:rgba(255,255,255,.08);
+    }
+    .badge.safe{color:#c6ffd4;border-color:rgba(124,227,139,.35);background:rgba(124,227,139,.10)}
+    .badge.warn{color:#ffeab3;border-color:rgba(255,209,102,.35);background:rgba(255,209,102,.12)}
+    .badge.stop{color:#ffd1d9;border-color:rgba(255,100,124,.35);background:rgba(255,100,124,.12)}
+    body.light .badge.safe{color:#0f6e2a}
+    body.light .badge.warn{color:#715200}
+    body.light .badge.stop{color:#92213a}
+
+    .cards{
+      padding:14px;
+      display:grid;
+      gap:12px;
+    }
+    .card{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      background:var(--card);
+      padding:15px;
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:16px;
+      letter-spacing:-.03em;
+    }
+    .card p,.card li{
+      color:var(--sub);
+      font-size:13px;
+      line-height:1.65;
+    }
+    .card p{margin:0}
+    ul{margin:8px 0 0;padding-left:18px}
+    li+li{margin-top:4px}
+
+    .nav-grid{
+      display:grid;
+      gap:10px;
+      padding:14px;
+    }
+    .nav-card{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      background:var(--card);
+      padding:13px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:center;
+    }
+    .nav-card b{
+      display:block;
+      font-size:15px;
+      margin-bottom:4px;
+      letter-spacing:-.03em;
+    }
+    .nav-card span{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+    .map-actions{
+      display:flex;
+      gap:8px;
+    }
+    .map-link{
+      min-height:44px;
+      min-width:58px;
+      padding:0 12px;
+      border-radius:17px;
+      display:grid;
+      place-items:center;
+      text-decoration:none;
+      color:var(--txt);
+      background:linear-gradient(145deg,rgba(127,255,212,.20),rgba(117,215,255,.08));
+      border:1px solid rgba(127,255,212,.22);
+      font-size:12px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+    .map-link.alt{
+      background:rgba(255,255,255,.075);
+      border-color:rgba(255,255,255,.12);
+      color:var(--sub);
+    }
+
+    .med-list{
+      display:grid;
+      gap:10px;
+      margin-top:10px;
+    }
+    .med{
+      display:flex;
+      gap:11px;
+      padding:12px;
+      border-radius:20px;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .med .ico{
+      width:40px;height:40px;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      background:linear-gradient(145deg,rgba(127,255,212,.18),rgba(117,215,255,.08));
+      flex:0 0 auto;
+    }
+    .med b{display:block;margin-bottom:4px;font-size:14px}
+    .med span{display:block;color:var(--sub);font-size:12px;line-height:1.45}
+
+    .copybox{
+      margin-top:12px;
+      display:grid;
+      gap:9px;
+    }
+    .copy{
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.075);
+      color:var(--txt);
+      border-radius:18px;
+      padding:13px 14px;
+      text-align:left;
+      font-size:12px;
+      line-height:1.55;
+      font-family:inherit;
+      cursor:pointer;
+      min-height:48px;
+    }
+    .copy::after{
+      content:"点击复制";
+      float:right;
+      color:var(--mint);
+      font-size:11px;
+      margin-left:10px;
+    }
+
+    .full-phrase{
+      min-height:62px;
+      padding:15px;
+      border:1px solid rgba(127,255,212,.25);
+      background:linear-gradient(145deg,rgba(127,255,212,.14),rgba(255,255,255,.06));
+      border-radius:22px;
+      color:var(--txt);
+      font-size:15px;
+      font-weight:800;
+      line-height:1.5;
+      text-align:left;
+      font-family:inherit;
+      cursor:pointer;
+    }
+
+    .rules{
+      padding:14px;
+      display:grid;
+      gap:10px;
+    }
+    .rule{
+      display:flex;
+      gap:10px;
+      border:1px solid rgba(255,255,255,.11);
+      background:var(--card);
+      border-radius:21px;
+      padding:12px;
+    }
+    .rule strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:14px;
+    }
+    .rule span{
+      color:var(--sub);
+      font-size:12px;
+      line-height:1.55;
+    }
+
+    .emergency{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:10px;
+      padding:15px;
+      margin:14px;
+      text-decoration:none;
+      border-radius:24px;
+      color:#fff;
+      background:linear-gradient(135deg,#ff375f,#ff7b55);
+      box-shadow:0 18px 40px rgba(255,55,95,.22);
+      border:1px solid rgba(255,255,255,.18);
+    }
+    .emergency b{font-size:18px;letter-spacing:-.04em}
+    .emergency span{font-size:12px;opacity:.85}
+    .emergency i{
+      font-style:normal;
+      font-size:28px;
+      font-weight:900;
+    }
+
+    .checklist{
+      padding:14px;
+      display:grid;
+      gap:10px;
+    }
+    label.check{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(255,255,255,.11);
+      background:var(--card);
+      border-radius:18px;
+      padding:12px;
+      color:var(--sub);
+      font-size:13px;
+      min-height:48px;
+    }
+    input[type="checkbox"]{
+      accent-color:#7fffd4;
+      width:20px;height:20px;
+      flex:0 0 auto;
+    }
+
+    .source{
+      padding:14px 16px 18px;
+      color:var(--muted);
+      font-size:11px;
+      line-height:1.65;
+    }
+    .source a{
+      color:#aeeeff;
+      text-decoration:none;
+      border-bottom:1px dotted rgba(174,238,255,.45);
+    }
+    body.light .source a{color:#106da1}
+
+    .sticky{
+      position:fixed;
+      left:0;right:0;bottom:0;
+      z-index:20;
+      padding:10px 12px calc(10px + var(--safe-bottom));
+      background:linear-gradient(180deg,transparent,rgba(5,9,16,.84) 24%,rgba(5,9,16,.96));
+      backdrop-filter:blur(16px);
+    }
+    body.light .sticky{background:linear-gradient(180deg,transparent,rgba(247,251,255,.82) 24%,rgba(247,251,255,.96))}
+    .bottom-nav{
+      width:min(540px,100%);
+      margin:0 auto;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.10);
+      border-radius:24px;
+      padding:7px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      box-shadow:0 14px 42px rgba(0,0,0,.32);
+    }
+    body.light .bottom-nav{background:rgba(255,255,255,.72);box-shadow:0 14px 42px rgba(37,86,130,.14)}
+    .bottom-nav a{
+      min-height:48px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      color:var(--sub);
+      text-decoration:none;
+      font-size:12px;
+      font-weight:800;
+      border-radius:18px;
+      padding:8px 4px;
+    }
+    .bottom-nav a:active,.bottom-nav a:hover{background:rgba(255,255,255,.12);color:var(--txt)}
+
+    .pillrow{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .pill{
+      border:1px solid rgba(255,255,255,.13);
+      background:rgba(255,255,255,.075);
+      color:var(--sub);
+      border-radius:999px;
+      padding:7px 10px;
+      font-size:12px;
+    }
+
+    .footer-note{
+      text-align:center;
+      color:rgba(238,247,255,.36);
+      font-size:11px;
+      padding:18px 10px 0;
+      line-height:1.7;
+    }
+    body.light .footer-note{color:rgba(15,23,36,.38)}
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:calc(92px + var(--safe-bottom));
+      transform:translateX(-50%) translateY(20px);
+      opacity:0;
+      z-index:30;
+      padding:11px 14px;
+      border-radius:999px;
+      background:rgba(15,23,36,.92);
+      color:white;
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow:0 16px 40px rgba(0,0,0,.28);
+      font-size:13px;
+      transition:.25s ease;
+      pointer-events:none;
+      white-space:nowrap;
+    }
+    .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    .modal-mask{
+      position:fixed;
+      inset:0;
+      z-index:40;
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      background:rgba(0,0,0,.46);
+      backdrop-filter:blur(8px);
+      padding:14px 14px calc(14px + var(--safe-bottom));
+    }
+    .modal-mask.show{display:flex}
+    .modal{
+      width:min(540px,100%);
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(10,16,28,.94);
+      border-radius:28px;
+      padding:18px;
+      box-shadow:0 24px 70px rgba(0,0,0,.48);
+    }
+    body.light .modal{background:rgba(255,255,255,.96);color:#0f1724}
+    .modal h2{margin:0 0 8px;font-size:23px;letter-spacing:-.05em}
+    .modal p{margin:0;color:var(--sub);font-size:14px;line-height:1.65}
+    .modal button{
+      margin-top:14px;
+      width:100%;
+      min-height:52px;
+      border:0;
+      border-radius:18px;
+      background:linear-gradient(135deg,var(--mint),var(--cyan));
+      color:#052b32;
+      font:inherit;
+      font-weight:900;
+    }
+
+    @media (min-width:560px){
+      .app{padding-top:26px}
+      .app::before{
+        content:"手机端执行版预览";
+        display:block;
+        text-align:center;
+        color:var(--muted);
+        font-size:12px;
+        margin-bottom:10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{
+        animation:none !important;
+        transition:none !important;
+        scroll-behavior:auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora"></div>
+
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">🇭🇰</div>
+        <div>
+          <small>2026/05/02 · Mobile Action Plan</small>
+          <b>香港一日游执行助手</b>
+        </div>
+      </div>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="切换深浅色">☀️</button>
+    </header>
+
+    <section class="hero" id="top">
+      <span class="tag">📍 10:00 到港 · 19:53 返程</span>
+      <h1>今天别赶路，<br>只抓关键点。</h1>
+      <p class="lead">路线核心：尖沙咀维港 → 天星小轮 → 中环 → 山顶 → 回西九龙 → 圆方万宁买药 → 18:30 前进站。</p>
+
+      <div class="hero-actions">
+        <a class="primary-action" href="#now">看现在该做什么</a>
+        <button class="ghost-action" id="shareBtn" type="button">分享给同行人</button>
+      </div>
+
+      <div class="chips">
+        <div class="chip"><b>10:00</b><span>抵达香港西九龙</span></div>
+        <div class="chip hot"><b>17:40</b><span>回圆方万宁买药</span></div>
+        <div class="chip danger"><b>18:30</b><span>必须进入高铁站</span></div>
+        <div class="chip"><b>19:53</b><span>高铁发车</span></div>
+      </div>
+    </section>
+
+    <section class="status-grid" id="now">
+      <div class="status-card amber" id="safeCard">
+        <b>距 18:30 安全进站线</b>
+        <div class="big" id="safeCountdown">计算中</div>
+        <div class="hint">到点后不要再购物/拍照，直接进站。</div>
+      </div>
+      <div class="status-card red" id="trainCard">
+        <b>距 19:53 高铁发车</b>
+        <div class="big" id="trainCountdown">计算中</div>
+        <div class="hint">目标 19:30 前完成手续到候车区。</div>
+      </div>
+    </section>
+
+    <section class="now-card">
+      <div class="label">当前阶段自动判断</div>
+      <h2 id="nowTitle">正在判断...</h2>
+      <p id="nowDesc">页面会根据手机时间自动高亮今天的执行阶段。</p>
+      <div class="progress-wrap" aria-label="今日行程进度">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </section>
+
+    <section class="section" id="route">
+      <div class="section-head">
+        <h2>今日路线</h2>
+        <div class="mini">西九龙出发<br>西九龙收尾</div>
+      </div>
+      <div class="route">
+        <div class="mapline">
+          <div class="stop"><div class="dot">🚄</div><span>西九龙</span></div>
+          <div class="stop"><div class="dot">🌊</div><span>尖沙咀</span></div>
+          <div class="stop"><div class="dot">⛴️</div><span>天星</span></div>
+          <div class="stop"><div class="dot">🏙️</div><span>中环</span></div>
+          <div class="stop"><div class="dot">⛰️</div><span>山顶</span></div>
+        </div>
+        <div class="notice">
+          使用策略：上午先走维港和商场，下午上山顶，16:50 后只做返程动作。最后买药放在西九龙旁边的圆方 ELEMENTS 万宁。
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="map">
+      <div class="section-head">
+        <h2>高德地图跳转</h2>
+        <div class="mini">导航优先<br>搜索备用</div>
+      </div>
+      <div class="nav-grid" id="mapList">
+        <div class="nav-card">
+          <div><b>香港西九龙站</b><span>返程终点，18:30 前进入车站</span></div>
+          <div class="map-actions">
+            <a class="map-link" href="https://uri.amap.com/navigation?to=114.1648,22.3047,%E9%A6%99%E6%B8%AF%E8%A5%BF%E4%B9%9D%E9%BE%99%E7%AB%99&mode=car&policy=1&src=hongkong_daytrip&callnative=1">导航</a>
+            <a class="map-link alt" href="https://uri.amap.com/search?keyword=%E9%A6%99%E6%B8%AF%E8%A5%BF%E4%B9%9D%E9%BE%99%E7%AB%99&city=%E9%A6%99%E6%B8%AF&src=hongkong_daytrip&callnative=1">搜索</a>
+          </div>
+        </div>
+
+        <div class="nav-card">
+          <div><b>尖沙咀星光大道</b><span>维港海滨、拍港岛天际线</span></div>
+          <div class="map-actions">
+            <a class="map-link" href="https://uri.amap.com/navigation?to=114.1747,22.2930,%E6%98%9F%E5%85%89%E5%A4%A7%E9%81%93&mode=car&policy=1&src=hongkong_daytrip&callnative=1">导航</a>
+            <a class="map-link alt" href="https://uri.amap.com/search?keyword=%E9%A6%99%E6%B8%AF%E6%98%9F%E5%85%89%E5%A4%A7%E9%81%93&city=%E9%A6%99%E6%B8%AF&src=hongkong_daytrip&callnative=1">搜索</a>
+          </div>
+        </div>
+
+        <div class="nav-card">
+          <div><b>天星小轮尖沙咀码头</b><span>尖沙咀 → 中环，经典横渡维港</span></div>
+          <div class="map-actions">
+            <a class="map-link" href="https://uri.amap.com/navigation?to=114.1694,22.2938,%E5%A4%A9%E6%98%9F%E5%B0%8F%E8%BD%AE%E5%B0%96%E6%B2%99%E5%92%80%E7%A0%81%E5%A4%B4&mode=walk&policy=1&src=hongkong_daytrip&callnative=1">导航</a>
+            <a class="map-link alt" href="https://uri.amap.com/search?keyword=%E5%A4%A9%E6%98%9F%E5%B0%8F%E8%BD%AE%E5%B0%96%E6%B2%99%E5%92%80%E7%A0%81%E5%A4%B4&city=%E9%A6%99%E6%B8%AF&src=hongkong_daytrip&callnative=1">搜索</a>
+          </div>
+        </div>
+
+        <div class="nav-card">
+          <div><b>中环码头</b><span>下船后轻松 Citywalk</span></div>
+          <div class="map-actions">
+            <a class="map-link" href="https://uri.amap.com/navigation?to=114.1590,22.2865,%E4%B8%AD%E7%8E%AF%E7%A0%81%E5%A4%B4&mode=walk&policy=1&src=hongkong_daytrip&callnative=1">导航</a>
+            <a class="map-link alt" href="https://uri.amap.com/search?keyword=%E4%B8%AD%E7%8E%AF%E7%A0%81%E5%A4%B4&city=%E9%A6%99%E6%B8%AF&src=hongkong_daytrip&callnative=1">搜索</a>
+          </div>
+        </div>
+
+        <div class="nav-card">
+          <div><b>山顶缆车中环总站</b><span>花园道总站，上山顶</span></div>
+          <div class="map-actions">
+            <a class="map-link" href="https://uri.amap.com/navigation?to=114.1592,22.2778,%E5%B1%B1%E9%A1%B6%E7%BC%86%E8%BD%A6%E4%B8%AD%E7%8E%AF%E6%80%BB%E7%AB%99&mode=car&policy=1&src=hongkong_daytrip&callnative=1">导航</a>
+            <a class="map-link alt" href="https://uri.amap.com/search?keyword=%E5%B1%B1%E9%A1%B6%E7%BC%86%E8%BD%A6%E4%B8%AD%E7%8E%AF%E6%80%BB%E7%AB%99&city=%E9%A6%99%E6%B8%AF&src=hongkong_daytrip&callnative=1">搜索</a>
+          </div>
+        </div>
+
+        <div class="nav-card">
+          <div><b>太平山顶 / 凌霄阁</b><span>今天最重要的观景点</span></div>
+          <div class="map-actions">
+            <a class="map-link" href="https://uri.amap.com/navigation?to=114.1498,22.2715,%E5%A4%AA%E5%B9%B3%E5%B1%B1%E9%A1%B6%E5%87%8C%E9%9C%84%E9%98%81&mode=car&policy=1&src=hongkong_daytrip&callnative=1">导航</a>
+            <a class="map-link alt" href="https://uri.amap.com/search?keyword=%E5%A4%AA%E5%B9%B3%E5%B1%B1%E9%A1%B6%E5%87%8C%E9%9C%84%E9%98%81&city=%E9%A6%99%E6%B8%AF&src=hongkong_daytrip&callnative=1">搜索</a>
+          </div>
+        </div>
+
+        <div class="nav-card">
+          <div><b>圆方 ELEMENTS 万宁</b><span>L1 木区 1092；最后买药地点</span></div>
+          <div class="map-actions">
+            <a class="map-link" href="https://uri.amap.com/navigation?to=114.1622,22.3048,%E5%9C%86%E6%96%B9ELEMENTS%E4%B8%87%E5%AE%81&mode=car&policy=1&src=hongkong_daytrip&callnative=1">导航</a>
+            <a class="map-link alt" href="https://uri.amap.com/search?keyword=%E5%9C%86%E6%96%B9%20ELEMENTS%20%E4%B8%87%E5%AE%81&city=%E9%A6%99%E6%B8%AF&src=hongkong_daytrip&callnative=1">搜索</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="timeline">
+      <div class="section-head">
+        <h2>时间规划表</h2>
+        <div class="mini">自动高亮当前阶段</div>
+      </div>
+
+      <div class="timeline">
+        <div class="item"
